@@ -1,0 +1,23 @@
+{
+  "enabled": false,
+  "extends": [
+    "config:base",
+    ":semanticCommits",
+    ":automergePatch",
+    ":automergeTypes",
+    ":automergeTesters",
+    ":automergeLinters",
+    ":automergeMinor",
+    ":rebaseStalePrs"
+  ],
+  "packageRules": [
+    {
+      "updateTypes": [
+        "major"
+      ],
+      "labels": [
+        "UPDATE-MAJOR"
+      ]
+    }
+  ]
+}
