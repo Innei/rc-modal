@@ -1,5 +1,5 @@
 {
-  "name": "my-awesome-lib",
+  "name": "rc-modal-sheet",
   "private": true,
   "version": "0.0.0",
   "description": "TODO",
@@ -30,11 +30,15 @@
         "import": "./dist/index.js",
         "require": "./dist/index.cjs"
       },
-      "./src": {
-        "import": "./src"
+      "./motion": {
+        "type": "./dist/motion.d.ts",
+        "import": "./dist/motion.js",
+        "require": "./dist/motion.cjs"
       },
-      "./src/*": {
-        "import": "./src/*"
+      "./m": {
+        "type": "./dist/m.d.ts",
+        "import": "./dist/m.js",
+        "require": "./dist/m.cjs"
       }
     },
     "files": [
@@ -67,43 +71,51 @@
   },
   "scripts": {
     "prebuild": "rm -rf lib && rm -rf esm",
-    "build": "tsc --build . tsconfig.build.json && tsc --build tsconfig.cjs.json",
-    "postbuild": "tsc-alias -p tsconfig.build.json && tsc-alias -p tsconfig.cjs.json && npm run types",
-    "types": "rm -rf types && tsc --build tsconfig.types.json && tsc-alias -p tsconfig.types.json && npx dts-bundle-generator -o dist/index.d.ts ./src/index.ts --no-check --silent --project ./tsconfig.types.json",
-    "package": "NODE_ENV=production npm run build && rollup -c",
-    "prepackage": "rm -rf dist",
-    "test": "vitest",
-    "prepare": "husky install && cd example && pnpm i",
+    "build": "vite build",
+    "prepare": "husky install",
     "release": "bump"
   },
   "devDependencies": {
     "@innei/bump-version": "1.5.10",
-    "@innei/eslint-config-react-ts": "0.12.2",
-    "@innei/eslint-config-ts": "0.12.2",
-    "@innei/prettier": "0.12.2",
-    "@rollup/plugin-commonjs": "25.0.7",
-    "@rollup/plugin-node-resolve": "15.2.3",
-    "@rollup/plugin-typescript": "11.1.6",
-    "@types/node": "20.11.17",
-    "@unocss/preset-wind": "0.58.5",
+    "@innei/eslint-config-react-ts": "0.12.4",
+    "@innei/eslint-config-ts": "0.12.4",
+    "@innei/prettier": "0.12.4",
+    "@radix-ui/react-dialog": "1.0.5",
+    "@types/node": "20.11.27",
+    "@types/react": "18.2.65",
+    "@vitejs/plugin-react": "4.2.1",
     "dts-bundle-generator": "^9.3.1",
-    "esbuild": "0.20.0",
-    "husky": "9.0.10",
+    "esbuild": "0.20.1",
+    "foxact": "0.2.33",
+    "framer-motion": "11.0.13",
+    "husky": "9.0.11",
     "lint-staged": "15.2.2",
     "postcss": "8.4.35",
-    "postcss-import": "16.0.0",
+    "postcss-import": "16.0.1",
     "postcss-nested": "6.0.1",
     "prettier": "3.2.5",
-    "rollup": "4.10.0",
-    "rollup-plugin-esbuild": "6.1.1",
-    "rollup-plugin-peer-deps-external": "2.2.4",
-    "rollup-plugin-postcss": "4.0.2",
+    "react": "18.2.0",
+    "tailwindcss": "3.4.1",
     "tsc-alias": "1.8.8",
     "tslib": "2.6.2",
-    "typescript": "5.3.3",
-    "unocss": "0.58.5",
-    "vite": "5.1.1",
-    "vite-tsconfig-paths": "4.3.1",
-    "vitest": "1.2.2"
+    "typescript": "5.4.2",
+    "vite": "5.1.6",
+    "vite-plugin-dts": "3.7.3",
+    "vite-tsconfig-paths": "4.3.2",
+    "vitest": "1.3.1"
+  },
+  "peerDependencies": {
+    "@radix-ui/react-dialog": "^1",
+    "clsx": "*",
+    "framer-motion": "^11",
+    "tailwind-merge": "^2",
+    "vaul": "^0.9.0"
+  },
+  "dependencies": {
+    "@radix-ui/react-dialog": "^1",
+    "clsx": "*",
+    "framer-motion": "^11",
+    "tailwind-merge": "^2",
+    "vaul": "^0.9.0"
   }
 }

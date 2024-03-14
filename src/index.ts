@@ -1,10 +1,8 @@
-import { getTime } from '~/utils/index.js'
+export {
+  ModalStackContainer,
+  DeclarativeModal as Modal,
+  useCurrentModal,
+  useModalStack,
+} from './modal'
 
-import './index.css'
-
-export const date = getTime()
-const test = () => {
-  console.log('hello, rollup')
-  console.log(date)
-}
-export { test, getTime }
+export type { DeclarativeModalProps, ModalProps } from './modal'
