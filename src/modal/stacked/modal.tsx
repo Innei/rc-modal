@@ -31,6 +31,7 @@ import {
 } from '~/providers'
 
 import { PresentSheet } from '../../sheet'
+import { ModalBEM } from './bem'
 
 const microReboundPreset: Spring = {
   type: 'spring',
@@ -174,6 +175,7 @@ export const Modal: Component<{
             <Dialog.Content asChild>
               <div
                 className={clsxm(
+                  ModalBEM.root,
                   'fixed inset-0 z-[20] overflow-auto',
                   modalContainerClassName,
                 )}
@@ -197,6 +199,7 @@ export const Modal: Component<{
           <Dialog.Content asChild>
             <div
               className={clsxm(
+                ModalBEM.root,
                 'fixed inset-0 z-[20] flex items-center justify-center',
                 modalContainerClassName,
               )}
@@ -209,9 +212,10 @@ export const Modal: Component<{
                 animate={animateController}
                 transition={microReboundPreset}
                 className={clsxm(
+                  ModalBEM.content,
                   'relative flex flex-col overflow-hidden rounded-lg',
-                  'bg-zinc-50/80 dark:bg-neutral-900/80',
-                  'p-2 shadow-2xl shadow-stone-300 backdrop-blur-sm dark:shadow-stone-800',
+                  'bg-zinc-50/80 dark:bg-zinc-950/80',
+                  'p-2 shadow-2xl shadow-gray-300 backdrop-blur-sm dark:shadow-gray-800/50',
                   max
                     ? 'h-[90vh] w-[90vw]'
                     : 'max-h-[70vh] min-w-[300px] max-w-[90vw] lg:max-h-[calc(100vh-20rem)] lg:max-w-[70vw]',
@@ -221,18 +225,22 @@ export const Modal: Component<{
                 )}
                 onClick={stopPropagation}
               >
-                <Dialog.Title className="flex-shrink-0 px-4 py-2 text-lg font-medium">
+                <Dialog.Title
+                  className={`${ModalBEM.title} flex-shrink-0 px-4 py-2 text-lg font-medium`}
+                >
                   {title}
                 </Dialog.Title>
                 <Divider className="my-2 flex-shrink-0 border-slate-200 opacity-80 dark:border-neutral-800" />
 
-                <div className="min-h-0 flex-shrink flex-grow overflow-auto px-4 py-2">
+                <div
+                  className={`${ModalBEM.children} min-h-0 flex-shrink flex-grow overflow-auto px-4 py-2`}
+                >
                   {finalChildren}
                 </div>
 
                 <Dialog.DialogClose
                   onClick={close}
-                  className="absolute right-0 top-0 z-[9] p-5"
+                  className={`${ModalBEM.close} absolute right-0 top-0 z-[9] p-5`}
                 >
                   <CloseIcon />
                 </Dialog.DialogClose>

@@ -1,7 +1,7 @@
 import "@/styles/globals.css"
 import { Metadata } from "next"
 import { motion } from "framer-motion"
-import { ModalStackContainer } from "rc-modal-sheet"
+import { ModalStackContainer } from "rc-modal-sheet/src/helpers/motion"
 
 import { siteConfig } from "@/config/site"
 import { fontSans } from "@/lib/fonts"
@@ -47,11 +47,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="relative flex min-h-screen flex-col">
               <SiteHeader />
-              <div className="flex-1">{children}</div>
+              <ModalStackContainer>
+                <div className="flex-1">{children}</div>
+              </ModalStackContainer>
             </div>
             <TailwindIndicator />
           </ThemeProvider>
-          <Providers />
         </body>
       </html>
     </>

@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react'
 import { AnimatePresence } from 'framer-motion'
-import type { FC } from 'react'
+import type { FC, PropsWithChildren } from 'react'
 import type { ModalStackContainerProps } from './types'
 
 import {
@@ -16,11 +16,14 @@ import {
 
 import { Modal } from './modal'
 
-export const ModalStackContainer: FC<ModalStackContainerProps> = (props) => {
-  const { m, isMobile, ...config } = props
+export const ModalStackContainer: FC<
+  ModalStackContainerProps & PropsWithChildren
+> = (props) => {
+  const { m, isMobile, children } = props
   return (
     <ModalStackProvider>
       <SheetStackProvider>
+        {children}
         <MotionComponentContext.Provider
           // Keep the value stable
           value={useMemo(() => ({ m }), [])}
@@ -46,6 +49,7 @@ const SetMobile: FC<{ m?: boolean }> = ({ m }) => {
 const ModalStack = () => {
   const stack = useModalStackInternal()
 
+  console.log('stack', stack)
   return (
     <AnimatePresence mode="popLayout">
       {stack.map((item, index) => {

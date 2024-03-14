@@ -16,7 +16,7 @@
     ".": {
       "import": "./src/index.ts"
     },
-    "./*": {
+    "./src/*": {
       "import": "./src/*"
     }
   },
