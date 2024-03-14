@@ -23,25 +23,25 @@ export const ModalStackContainer: FC<
   return (
     <ModalStackProvider>
       <SheetStackProvider>
-        {children}
-        <MotionComponentContext.Provider
-          // Keep the value stable
-          value={useMemo(() => ({ m }), [])}
-        >
-          <IsMobileProvider>
+        <IsMobileProvider>
+          {children}
+          <MotionComponentContext.Provider
+            // Keep the value stable
+            value={useMemo(() => ({ m }), [])}
+          >
             <ModalStack />
-            <SetMobile m={isMobile} />
-          </IsMobileProvider>
-        </MotionComponentContext.Provider>
+            {typeof isMobile === 'boolean' && <SetMobile m={isMobile} />}
+          </MotionComponentContext.Provider>
+        </IsMobileProvider>
       </SheetStackProvider>
     </ModalStackProvider>
   )
 }
 
-const SetMobile: FC<{ m?: boolean }> = ({ m }) => {
+const SetMobile: FC<{ m: boolean }> = ({ m }) => {
   const set = useSetIsMobile()
   useMemo(() => {
-    typeof m === 'boolean' && set(m)
+    set(m)
   }, [m, set])
   return null
 }
@@ -49,7 +49,6 @@ const SetMobile: FC<{ m?: boolean }> = ({ m }) => {
 const ModalStack = () => {
   const stack = useModalStackInternal()
 
-  console.log('stack', stack)
   return (
     <AnimatePresence mode="popLayout">
       {stack.map((item, index) => {

@@ -1,7 +1,8 @@
 import { createContext, useContext } from 'react'
-import { createContextState } from 'foxact/create-context-state'
 import type { ModalProps } from '~/modal/stacked/types'
 import type { m, motion } from 'framer-motion'
+
+import { createContextState } from '~/lib/craete-context-state'
 
 export const [SheetStackProvider, useSheetStack, useSetSheetStack] =
   createContextState([] as HTMLDivElement[])

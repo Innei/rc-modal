@@ -100,6 +100,7 @@ export const Modal: Component<{
     [close],
   )
   const isMobile = useIsMobile()
+
   const isUnmounted = useIsUnMounted()
   const animateController = useAnimationControls()
   useEffect(() => {

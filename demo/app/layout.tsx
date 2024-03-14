@@ -1,6 +1,7 @@
 import "@/styles/globals.css"
 import { Metadata } from "next"
 import { motion } from "framer-motion"
+import { MobileDetector } from "rc-modal-sheet/src/helpers/mobile-detector"
 import { ModalStackContainer } from "rc-modal-sheet/src/helpers/motion"
 
 import { siteConfig } from "@/config/site"
@@ -48,6 +49,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <div className="relative flex min-h-screen flex-col">
               <SiteHeader />
               <ModalStackContainer>
+                <MobileDetector />
                 <div className="flex-1">{children}</div>
               </ModalStackContainer>
             </div>

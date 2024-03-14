@@ -5,4 +5,6 @@ export {
   useModalStack,
 } from './modal'
 
+export * from './hooks'
+
 export type { DeclarativeModalProps, ModalProps } from './modal'

@@ -25,6 +25,7 @@ export default defineConfig({
         resolve(__dirname, 'src/index.ts'),
         resolve(__dirname, 'src/helpers/m.tsx'),
         resolve(__dirname, 'src/helpers/motion.tsx'),
+        resolve(__dirname, 'src/helpers/mobile-detector.tsx'),
       ],
       name: 'RcModal',
 
