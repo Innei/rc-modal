@@ -1,14 +1,12 @@
 {
   "name": "rc-modal-sheet",
-  "private": true,
   "version": "0.0.0",
   "description": "TODO",
   "author": "Innei",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Innei/rollup-typescript-lib",
-    "directory": "Innei/rollup-typescript-lib"
+    "url": "https://github.com/Innei/rc-modal"
   },
   "type": "module",
   "main": "./src/index.ts",
@@ -39,6 +37,11 @@
         "type": "./dist/m.d.ts",
         "import": "./dist/m.js",
         "require": "./dist/m.cjs"
+      },
+      "./mobile-detector": {
+        "type": "./dist/mobile-detector.d.ts",
+        "import": "./dist/mobile-detector.js",
+        "require": "./dist/mobile-detector.cjs"
       }
     },
     "files": [
@@ -64,7 +67,7 @@
   },
   "bump": {
     "before": [
-      "npm run package"
+      "npm run build"
     ],
     "publish": true,
     "changelog": true
