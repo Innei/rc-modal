@@ -34,7 +34,6 @@ export default function IndexPage() {
                   </p>
                 </>
               ),
-              clickOutsideToDismiss: true,
             })
           }}
           className={buttonVariants()}

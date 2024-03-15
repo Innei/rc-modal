@@ -8,3 +8,6 @@ export {
 export * from './hooks'
 
 export type { DeclarativeModalProps, ModalProps } from './modal'
+
+export { PresentSheet } from './sheet'
+export type { PresentSheetProps } from './sheet'

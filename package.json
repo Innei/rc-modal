@@ -18,6 +18,9 @@
       "import": "./src/*"
     }
   },
+  "files": [
+    "src"
+  ],
   "publishConfig": {
     "main": "dist/index.cjs",
     "module": "dist/index.js",
@@ -46,12 +49,8 @@
     },
     "files": [
       "dist",
-      "lib",
-      "esm",
       "readme.md",
-      "tsconfig.json",
-      "types",
-      "src"
+      "tsconfig.json"
     ]
   },
   "husky": {

@@ -8,7 +8,6 @@ import { siteConfig } from "@/config/site"
 import { fontSans } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
 import { SiteHeader } from "@/components/site-header"
-import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
 
 import { Providers } from "./provider"
@@ -48,12 +47,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="relative flex min-h-screen flex-col">
               <SiteHeader />
-              <ModalStackContainer>
+              <ModalStackContainer clickOutsideToDismiss>
                 <MobileDetector />
                 <div className="flex-1">{children}</div>
               </ModalStackContainer>
             </div>
-            <TailwindIndicator />
           </ThemeProvider>
         </body>
       </html>
