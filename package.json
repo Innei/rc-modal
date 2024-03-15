@@ -19,6 +19,9 @@
     }
   },
   "files": [
+    "dist",
+    "readme.md",
+    "tsconfig.json",
     "src"
   ],
   "publishConfig": {
@@ -46,12 +49,7 @@
         "import": "./dist/mobile-detector.js",
         "require": "./dist/mobile-detector.cjs"
       }
-    },
-    "files": [
-      "dist",
-      "readme.md",
-      "tsconfig.json"
-    ]
+    }
   },
   "husky": {
     "hooks": {
