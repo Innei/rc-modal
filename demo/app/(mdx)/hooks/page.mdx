@@ -1,0 +1,32 @@
+---
+order: 1.8
+---
+
+# Hooks
+
+## `useCurrentModal()`
+
+`.dismiss()` to dimiss current modal.
+
+## `useModalStack()`
+
+`.dimiss(id: string)` to dismiss a modal by id.
+
+`.dimissAll()` to dismiss all modals.
+
+`.dismissTop()` to dismiss the top modal.
+
+`.present(options: ModalProps)` to present a sheet.
+
+## ModalProps
+
+| name                    | type                                         | optional | default | description                               |
+| ----------------------- | -------------------------------------------- | -------- | ------- | ----------------------------------------- |
+| title                   | `string`                                     | `false`  | `n/a`   |                                           |
+| CustomModalComponent    | `FC<{ children?: ReactNode; }> \| undefined` | `true`   | `n/a`   |                                           |
+| content                 | `FC<ModalContentPropsInternal>`              | `false`  | `n/a`   |                                           |
+| clickOutsideToDismiss   | `boolean \| undefined`                       | `true`   | `n/a`   |                                           |
+| modalClassName          | `string \| undefined`                        | `true`   | `n/a`   |                                           |
+| modalContainerClassName | `string \| undefined`                        | `true`   | `n/a`   |                                           |
+| max                     | `boolean \| undefined`                       | `true`   | `n/a`   | If `true`, the modal will be full screen. |
+| wrapper                 | `FC<{}> \| undefined`                        | `true`   | `n/a`   |                                           |

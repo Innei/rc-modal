@@ -37,6 +37,7 @@ const DeclarativeModalImpl: FC<DeclarativeModalProps> = ({
     }),
     [id, rest],
   )
+
   return (
     <AnimatePresence>
       {open && (

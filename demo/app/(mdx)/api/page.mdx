@@ -1,0 +1,69 @@
+---
+order: 99
+---
+
+# API
+
+## `useCurrentModal()`
+
+`.dismiss()` to dimiss current modal.
+
+## `useModalStack()`
+
+`.dimiss(id: string)` to dismiss a modal by id.
+
+`.dimissAll()` to dismiss all modals.
+
+`.dismissTop()` to dismiss the top modal.
+
+`.present(options: ModalProps)` to present a sheet.
+
+# Typings
+
+## DeclarativeModalProps
+
+| name                    | type                                         | optional | default | description                               |
+| ----------------------- | -------------------------------------------- | -------- | ------- | ----------------------------------------- |
+| open                    | `boolean \| undefined`                       | `true`   | `n/a`   |                                           |
+| onOpenChange            | `((open: boolean) => void) \| undefined`     | `true`   | `n/a`   |                                           |
+| children                | `ReactNode`                                  | `true`   | `n/a`   |                                           |
+| id                      | `string \| undefined`                        | `true`   | `n/a`   |                                           |
+| title                   | `string`                                     | `false`  | `n/a`   |                                           |
+| CustomModalComponent    | `FC<{ children?: ReactNode; }> \| undefined` | `true`   | `n/a`   |                                           |
+| clickOutsideToDismiss   | `boolean \| undefined`                       | `true`   | `n/a`   |                                           |
+| modalClassName          | `string \| undefined`                        | `true`   | `n/a`   |                                           |
+| modalContainerClassName | `string \| undefined`                        | `true`   | `n/a`   |                                           |
+| max                     | `boolean \| undefined`                       | `true`   | `n/a`   | If `true`, the modal will be full screen. |
+| wrapper                 | `FC<{}> \| undefined`                        | `true`   | `n/a`   |                                           |
+
+## ModalProps
+
+| name                    | type                                         | optional | default | description                               |
+| ----------------------- | -------------------------------------------- | -------- | ------- | ----------------------------------------- |
+| title                   | `string`                                     | `false`  | `n/a`   |                                           |
+| CustomModalComponent    | `FC<{ children?: ReactNode; }> \| undefined` | `true`   | `n/a`   |                                           |
+| content                 | `FC<ModalContentPropsInternal>`              | `false`  | `n/a`   |                                           |
+| clickOutsideToDismiss   | `boolean \| undefined`                       | `true`   | `n/a`   |                                           |
+| modalClassName          | `string \| undefined`                        | `true`   | `n/a`   |                                           |
+| modalContainerClassName | `string \| undefined`                        | `true`   | `n/a`   |                                           |
+| max                     | `boolean \| undefined`                       | `true`   | `n/a`   | If `true`, the modal will be full screen. |
+| wrapper                 | `FC<{}> \| undefined`                        | `true`   | `n/a`   |                                           |
+
+## ModalStackContainerProps
+
+| name  | type                   | optional | default | description                                                                             |
+| ----- | ---------------------- | -------- | ------- | --------------------------------------------------------------------------------------- |
+| sheet | `boolean \| undefined` | `true`   | `n/a`   | If not passed, it will be always `false`, so will can't switch to sheet mode in mobile. |
+| m     | `any`                  | `false`  | `n/a`   | Framer motion motion element.                                                           |
+
+## PresentSheetProps
+
+| name         | type                                      | optional | default | description |
+| ------------ | ----------------------------------------- | -------- | ------- | ----------- |
+| content      | `ReactNode \| FC<{}>`                     | `false`  | `n/a`   |             |
+| open         | `boolean \| undefined`                    | `true`   | `n/a`   |             |
+| onOpenChange | `((value: boolean) => void) \| undefined` | `true`   | `n/a`   |             |
+| title        | `string \| undefined`                     | `true`   | `n/a`   |             |
+| zIndex       | `number \| undefined`                     | `true`   | `n/a`   |             |
+| dismissible  | `boolean \| undefined`                    | `true`   | `n/a`   |             |
+| defaultOpen  | `boolean \| undefined`                    | `true`   | `n/a`   |             |

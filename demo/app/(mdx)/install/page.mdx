@@ -1,0 +1,108 @@
+---
+order: 1
+---
+
+# Quick Start
+
+## Pre-use Tips
+
+- This component uses TailwindCSS's atomic class names. If your project does not use TailwindCSS, it will not affect the use of this component; you only need to manually import the component's style file.
+- This component is built on top of libraries or headless components such as Framer motion, Radix Dialog, [vaul](https://github.com/emilkowalski/vaul). If your project has not imported these libraries, then you need to consider if you should worry about the additional size of the product when using this component.
+
+## Install
+
+```bash
+npm i rc-modal-sheet
+```
+
+## Initialization
+
+### Global Container
+
+Add the `ModalStackContainer` component wrapper at the top of your project:
+
+```tsx
+import { motion } from "framer-motion"
+import { ModalStackContainer } from "rc-modal-sheet"
+
+const App = () => (
+  <ModalStackContainer m={motion}>{children}</ModalStackContainer>
+)
+```
+
+If your project does not directly use Framer Motion, then you can use it like this:
+
+```tsx
+import { ModalStackContainer } from "rc-modal-sheet/motion"
+
+const App = () => <ModalStackContainer>{children}</ModalStackContainer>
+```
+
+If your project uses [LazyMotion](https://www.framer.com/motion/lazy-motion/) from Framer Motion, then you can use it like this:
+
+```tsx
+import { ModalStackContainer } from "rc-modal-sheet/m"
+
+const App = () => <ModalStackContainer>{children}</ModalStackContainer>
+```
+
+### Using with TailwindCSS
+
+If your project uses TailwindCSS, add the following configuration in `tailwind.config.js`:
+
+```js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  darkMode: ["class"],
+  content: [
+    "app/**/*.{ts,tsx}",
+    "components/**/*.{ts,tsx}",
+    "./node_modules/rc-modal-sheet/src/**/*.{ts,tsx}", // Add this line
+  ],
+}
+```
+
+### Using in Non-TailwindCSS Projects
+
+If your project does not use TailwindCSS, you need to manually import the component's style file:
+
+```tsx
+import "rc-modal-sheet/dist/index.css"
+```
+
+Now you can use Modals in your components.
+
+## Simple Example
+
+A simple example, calling to open a Modal with a hook:
+
+```tsx
+import { useModalStack } from "rc-modal-sheet"
+
+export const Basic = () => {
+  const { present } = useModalStack()
+  return (
+    <Button
+      onClick={() => {
+        present({
+          title: "Modal",
+          content: () => (
+            <>
+              <p>
+                This is a modal. You can put anything you want in here. And it
+                can be nested.
+              </p>
+            </>
+          ),
+        })
+      }}
+    >
+      Open a modal
+    </Button>
+  )
+}
+```
+
+import { Basic } from "./demo"
+
+<Basic />

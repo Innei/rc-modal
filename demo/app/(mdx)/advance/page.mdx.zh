@@ -1,0 +1,197 @@
+---
+order: 2
+---
+
+# 高级用法
+
+## UI 转换
+
+<video src="/sheet.mp4" controls playsInline />
+
+你可以通过传入 `sheet` 参数控制 Modal 在不同场景下的渲染样式。
+
+例如在移动端的小屏设备上显示 sheet 的样式，而在大屏设备上显示 modal 的样式。
+
+```jsx
+const App = () => {
+  const isMobile = useIsMobile()
+  return <ModalStackContainer sheet={isMobile}>{children}</ModalStackContainer>
+}
+```
+
+如果你不传入 `sheet` 参数，那么 modal 的展现形式一直会是 modal 的样式。
+
+上面的例子，这里提供了组件，让这个场景更加快捷的使用。
+
+```jsx
+import { MobileDetector } from "rc-modal-sheet/mobile-detector"
+
+const App = () => {
+  return (
+    <ModalStackContainer>
+      <MobileDetector />
+      {children}
+    </ModalStackContainer>
+  )
+}
+```
+
+## 声明式 Modal
+
+一般情况下，我们会通过 `useModalStack` 来创建一个堆叠式 Modal。
+
+```jsx
+import { useModalStack } from "rc-modal-sheet"
+
+export const Basic = () => {
+  const { present } = useModalStack()
+  return (
+    <Button
+      onClick={() => {
+        present({
+          title: "Modal",
+          content: () => (
+            <p>
+              This is a modal. You can put anything you want in here. And it can
+              be nested.
+            </p>
+          ),
+        })
+      }}
+    >
+      Open a modal
+    </Button>
+  )
+}
+```
+
+上面是常用的方式，但是如果你想要更加声明式的方式，你可以使用 `Modal` 组件。这样就能避免无法在命令式中使用 Context 的问题。
+
+```jsx
+import { useState } from "react"
+import { Modal } from "rc-modal-sheet"
+
+export const App = () => {
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <Button
+        onClick={() => {
+          setOpen(true)
+        }}
+      >
+        Open Modal
+      </Button>
+      <Modal title="A declaratively modal" open={open} onOpenChange={setOpen}>
+        <p>
+          This is a modal. You can put anything you want in here. And It can be
+          nested.
+        </p>
+      </Modal>
+    </>
+  )
+}
+```
+
+import { App } from "./demo.tsx"
+
+<App />
+
+## 命令式调用的最佳实践
+
+命令式调用 Modal 的好处是便于封装组件逻辑，例如，我们可以把声明式 Modal 在多次使用的场景下，快速进行重构和封装。
+
+```tsx
+const MyModal = ({
+  open,
+  onOpenChange,
+}: {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+}) => {
+  return (
+    <Modal
+      title="A declaratively modal"
+      open={open}
+      onOpenChange={onOpenChange}
+    >
+      <p>
+        This is a modal. You can put anything you want in here. And It can be
+        nested.
+      </p>
+    </Modal>
+  )
+}
+const Component1 = () => {
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <Button
+        onClick={() => {
+          setOpen(true)
+        }}
+      >
+        Open Modal
+      </Button>
+
+      <MyModal open={open} onOpenChange={setOpen} />
+    </>
+  )
+}
+
+const Component2 = () => {
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <Button
+        onClick={() => {
+          setOpen(true)
+        }}
+      >
+        Other biz button also use modal
+      </Button>
+
+      <MyModal open={open} onOpenChange={setOpen} />
+    </>
+  )
+}
+```
+
+重构成命令式调用的 Hook，这样就不必在组件内部控制 Modal 的打开和关闭状态。
+
+```tsx
+const useMyModal = () => {
+  const { present } = useModalStack()
+  return useCallback(() => {
+    present({
+      title: "My Modal",
+      content: () => (
+        <p>
+          This is a modal. You can put anything you want in here. And It can be
+          nested.
+        </p>
+      ),
+    })
+  }, [present])
+}
+
+const Component1 = () => {
+  const showModal = useMyModal()
+  return (
+    <>
+      <Button onClick={showModal}>Open Modal</Button>
+    </>
+  )
+}
+
+const Component2 = () => {
+  const showModal = useMyModal()
+  return (
+    <>
+      <Button onClick={showModal}>Other biz button also use modal</Button>
+    </>
+  )
+}
+```
+
+是不是更加简洁和方便使用了呢？

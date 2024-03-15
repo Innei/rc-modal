@@ -1,0 +1,46 @@
+---
+order: 4
+---
+
+# `<Modal />`
+
+To define a declarative modal.
+
+```jsx
+import { useState } from "react"
+import { Modal } from "rc-modal-sheet"
+
+export const App = () => {
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <Button
+        onClick={() => {
+          setOpen(true)
+        }}
+      >
+        Open Modal
+      </Button>
+      <Modal title="A declaratively modal" open={open} onOpenChange={setOpen}>
+        <p>
+          This is a modal. You can put anything you want in here. And It can be
+          nested.
+        </p>
+      </Modal>
+    </>
+  )
+}
+```
+
+## ModalProps
+
+| name                    | type                                         | optional | default | description                               |
+| ----------------------- | -------------------------------------------- | -------- | ------- | ----------------------------------------- |
+| title                   | `string`                                     | `false`  | `n/a`   |                                           |
+| CustomModalComponent    | `FC<{ children?: ReactNode; }> \| undefined` | `true`   | `n/a`   |                                           |
+| content                 | `FC<ModalContentPropsInternal>`              | `false`  | `n/a`   |                                           |
+| clickOutsideToDismiss   | `boolean \| undefined`                       | `true`   | `n/a`   |                                           |
+| modalClassName          | `string \| undefined`                        | `true`   | `n/a`   |                                           |
+| modalContainerClassName | `string \| undefined`                        | `true`   | `n/a`   |                                           |
+| max                     | `boolean \| undefined`                       | `true`   | `n/a`   | If `true`, the modal will be full screen. |
+| wrapper                 | `FC<{}> \| undefined`                        | `true`   | `n/a`   |                                           |

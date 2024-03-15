@@ -1,0 +1,108 @@
+---
+order: 1
+---
+
+# 快速开始
+
+## 使用前提示
+
+- 此组件使用了 TailwindCSS 的原子类名，如果你的项目没有使用 TailwindCSS，也不会影响此组件的使用，只需要手动引入此组件的样式文件。
+- 此组件是建立在 Framer motion, Radix Dialog, [vaul](https://github.com/emilkowalski/vaul) 这些库或者 headless 组件之上的，如果你的项目中没有引入此库，那么你需要考虑使用此组件时是否需要担心额外的产物体积问题。
+
+## Install
+
+```bash
+npm i rc-modal-sheet
+```
+
+## 初始化
+
+### 全局容器
+
+在你的项目顶层增加 `ModalStackContainer` 组件的包装：
+
+```tsx
+import { motion } from "framer-motion"
+import { ModalStackContainer } from "rc-modal-sheet"
+
+const App = () => (
+  <ModalStackContainer m={motion}>{children}</ModalStackContainer>
+)
+```
+
+如果你的项目没有直接使用 Framer Motion，那么你可以使用这样的方式：
+
+```tsx
+import { ModalStackContainer } from "rc-modal-sheet/motion"
+
+const App = () => <ModalStackContainer>{children}</ModalStackContainer>
+```
+
+如果你的项目使用了 Framer Motion 的 [LazyMotion](https://www.framer.com/motion/lazy-motion/)，那么你可以使用这样的方式：
+
+```tsx
+import { ModalStackContainer } from "rc-modal-sheet/m"
+
+const App = () => <ModalStackContainer>{children}</ModalStackContainer>
+```
+
+### 在 TailwindCSS 中使用
+
+如果你的项目使用了 TailwindCSS, 那么在 `tailwind.config.js` 中增加以下配置：
+
+```js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  darkMode: ["class"],
+  content: [
+    "app/**/*.{ts,tsx}",
+    "components/**/*.{ts,tsx}",
+    "./node_modules/rc-modal-sheet/src/**/*.{ts,tsx}", // 添加这行
+  ],
+}
+```
+
+### 在非 TailwindCSS 项目中使用
+
+如果你的项目没有使用 TailwindCSS，那么你需要手动引入此组件的样式文件：
+
+```tsx
+import "rc-modal-sheet/dist/index.css"
+```
+
+现在你可以在你的组件中使用 Modal 了。
+
+## 简单的例子
+
+一个简单的例子，通过命令式去调用打开一个 Modal：
+
+```tsx
+import { useModalStack } from "rc-modal-sheet"
+
+export const Basic = () => {
+  const { present } = useModalStack()
+  return (
+    <Button
+      onClick={() => {
+        present({
+          title: "Modal",
+          content: () => (
+            <>
+              <p>
+                This is a modal. You can put anything you want in here. And It
+                can be nested.
+              </p>
+            </>
+          ),
+        })
+      }}
+    >
+      Open a modal
+    </Button>
+  )
+}
+```
+
+import { Basic } from "./demo"
+
+<Basic />

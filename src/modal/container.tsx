@@ -25,7 +25,6 @@ export const ModalStackContainer: FC<
     <ModalStackProvider>
       <SheetStackProvider>
         <IsMobileProvider>
-          {children}
           <MotionComponentContext.Provider
             // Keep the value stable
             value={useMemo(() => ({ m }), [])}
@@ -39,6 +38,7 @@ export const ModalStackContainer: FC<
                 [],
               )}
             >
+              {children}
               <ModalStack />
             </ModalGlobalConfigurationsContext.Provider>
             {typeof sheet === 'boolean' && <SetMobile m={sheet} />}
@@ -51,6 +51,7 @@ export const ModalStackContainer: FC<
 
 const SetMobile: FC<{ m: boolean }> = ({ m }) => {
   const set = useSetIsMobile()
+
   useMemo(() => {
     set(m)
   }, [m, set])

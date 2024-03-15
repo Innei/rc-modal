@@ -11,9 +11,7 @@ export const [ModalStackProvider, useModalStackInternal, useSetModalStack] =
   createContextState([] as (ModalProps & { id: string })[])
 
 export const [IsMobileProvider, useIsMobile, useSetIsMobile] =
-  createContextState(
-    typeof window !== 'undefined' ? window.innerWidth < 768 : false,
-  )
+  createContextState(false)
 
 export const MotionComponentContext = createContext<{
   m: typeof m | typeof motion

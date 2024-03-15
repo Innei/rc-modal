@@ -246,7 +246,7 @@ export const Modal: Component<{
                   onClick={close}
                   className={`${ModalBEM.close} absolute right-0 top-0 z-[9] p-5`}
                 >
-                  <CloseIcon />
+                  {CloseIcon}
                 </Dialog.DialogClose>
               </m.div>
             </div>

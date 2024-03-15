@@ -1,0 +1,50 @@
+---
+order: 5
+---
+
+# `<Sheet />`
+
+To define a declarative Sheet.
+
+```tsx
+import { useState } from "react"
+import { PresentSheet } from "~/sheet"
+
+import { Button } from "@/components/ui/button"
+
+export const MySheet = () => {
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <Button
+        onClick={() => {
+          setOpen(true)
+        }}
+      >
+        Open Sheet
+      </Button>
+      <PresentSheet
+        open={open}
+        onOpenChange={setOpen}
+        content={<div>Sheet Content</div>}
+      />
+    </>
+  )
+}
+```
+
+import { MySheet } from "./demo.tsx"
+
+<MySheet />
+
+## PresentSheetProps
+
+| name         | type                                      | optional | default | description |
+| ------------ | ----------------------------------------- | -------- | ------- | ----------- |
+| content      | `ReactNode \| FC<{}>`                     | `false`  | `n/a`   |             |
+| open         | `boolean \| undefined`                    | `true`   | `n/a`   |             |
+| onOpenChange | `((value: boolean) => void) \| undefined` | `true`   | `n/a`   |             |
+| title        | `string \| undefined`                     | `true`   | `n/a`   |             |
+| zIndex       | `number \| undefined`                     | `true`   | `n/a`   |             |
+| dismissible  | `boolean \| undefined`                    | `true`   | `n/a`   |             |
+| defaultOpen  | `boolean \| undefined`                    | `true`   | `n/a`   |             |

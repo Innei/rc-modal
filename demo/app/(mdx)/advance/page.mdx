@@ -1,0 +1,245 @@
+---
+order: 2
+---
+
+# Advanced Usage
+
+## Responsive Modal
+
+<video src="/sheet.mp4" controls playsInline />
+
+You can control the rendering style of the Modal in different scenarios by passing the `sheet` parameter.
+
+For example, show the style of a sheet on small-screen devices in mobile, and display the style of a modal on large-screen devices.
+
+```jsx
+const App = () => {
+  const isMobile = useIsMobile()
+  return <ModalStackContainer sheet={isMobile}>{children}</ModalStackContainer>
+}
+```
+
+If you do not pass the `sheet` parameter, the presentation style of the modal will always be that of a modal.
+
+In the example above, a component is provided to make this scenario easier to use.
+
+```jsx
+import { MobileDetector } from "rc-modal-sheet/mobile-detector"
+
+const App = () => {
+  return (
+    <ModalStackContainer>
+      <MobileDetector />
+      {children}
+    </ModalStackContainer>
+  )
+}
+```
+
+## Declarative Modal
+
+Typically, we create a stack of Modals using `useModalStack`.
+
+```jsx
+import { useModalStack } from "rc-modal-sheet"
+
+export const Basic = () => {
+  const { present } = useModalStack()
+  return (
+    <Button
+      onClick={() => {
+        present({
+          title: "Modal",
+          content: () => (
+            <p>
+              This is a modal. You can put anything you want in here. And it can
+              be nested.
+            </p>
+          ),
+        })
+      }}
+    >
+      Open a modal
+    </Button>
+  )
+}
+```
+
+The above is the common way, but if you want a more declarative way, you can use the `Modal` component. This way, you can avoid the problem of not being able to use Context in imperative calls.
+
+```jsx
+import { useState } from "react"
+import { Modal } from "rc-modal-sheet"
+
+export const App = () => {
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <Button
+        onClick={() => {
+          setOpen(true)
+        }}
+      >
+        Open Modal
+      </Button>
+      <Modal title="A declaratively modal" open={open} onOpenChange={setOpen}>
+        <p>
+          This is a modal. You can put anything you want in here. And It can be
+          nested.
+        </p>
+      </Modal>
+    </>
+  )
+}
+```
+
+import { App } from "./demo.tsx"
+
+<App />
+
+## Nested Modal
+
+You can also nest Modals.
+
+```jsx
+export const NestedModal = () => {
+  const { present, dismissAll } = useModalStack()
+  return (
+    <>
+      <Button
+        onClick={() => {
+          present({
+            title: "Nested Modal",
+
+            content: () => (
+              <div>
+                Modal 1
+                <Button
+                  onClick={() => {
+                    present({
+                      title: "Nested Modal 2",
+                      content: () => (
+                        <div>
+                          Modal 2 <br />{" "}
+                          <Button onClick={dismissAll}>Dismiss All</Button>
+                        </div>
+                      ),
+                    })
+                  }}
+                >
+                  Open Modal 2
+                </Button>
+              </div>
+            ),
+          })
+        }}
+      >
+        Open Nested Modal
+      </Button>
+    </>
+  )
+}
+```
+
+import { NestedModal } from "./demo.tsx"
+
+<NestedModal />
+
+## Best Practices for Imperative Invocation
+
+The advantage of invoking Modal imperatively is that it's easy to encapsulate component logic. For example, we can quickly refactor and encapsulate a declarative Modal in scenarios where it is used multiple times.
+
+```tsx
+const MyModal = ({
+  open,
+  onOpenChange,
+}: {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+}) => {
+  return (
+    <Modal
+      title="A declaratively modal"
+      open={open}
+      onOpenChange={onOpenChange}
+    >
+      <p>
+        This is a modal. You can put anything you want in here. And It can be
+        nested.
+      </p>
+    </Modal>
+  )
+}
+const Component1 = () => {
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <Button
+        onClick={() => {
+          setOpen(true)
+        }}
+      >
+        Open Modal
+      </Button>
+
+      <MyModal open={open} onOpenChange={setOpen} />
+    </>
+  )
+}
+
+const Component2 = () => {
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <Button
+        onClick={() => {
+          setOpen(true)
+        }}
+      >
+        Other biz button also use modal
+      </Button>
+
+      <MyModal open={open} onOpenChange={setOpen} />
+    </>
+  )
+}
+```
+
+Refactoring into an imperative call Hook, so you no longer have to control the opening and closing state of the Modal within the component.
+
+```tsx
+const useMyModal = () => {
+  const { present } = useModalStack()
+  return useCallback(() => {
+    present({
+      title: "My Modal",
+      content: () => (
+        <p>
+          This is a modal. You can put anything you want in here. And It can be
+          nested.
+        </p>
+      ),
+    })
+  }, [present])
+}
+
+const Component1 = () => {
+  const showModal = useMyModal()
+  return (
+    <>
+      <Button onClick={showModal}>Open Modal</Button>
+    </>
+  )
+}
+
+const Component2 = () => {
+  const showModal = useMyModal()
+  return (
+    <>
+      <Button onClick={showModal}>Other biz button also use modal</Button>
+    </>
+  )
+}
+```
+
+Isn't it more concise and convenient to use?
