@@ -1,90 +1,17 @@
-# Rollup Typescript library template
+# rc-modal
 
-A simple TypeScript library template. Quick to start dev, build a Pure TypeScript or React Component library.
+Beautifully designed Modal Component built with Radix UI and Tailwind CSS.
 
-Please use pnpm do this.
+| Modal                        | Sheet                        |
+| ---------------------------- | ---------------------------- |
+| ![](./demo/public/modal.png) | ![](./demo/public/sheet.png) |
 
-```sh
-pnpm i
-```
+...and it's fully responsive!
 
-# Usage
+<video src="./demo/public/sheet.mp4" />
 
-### Package
+### License
 
-Bundle your source code via tsc, rollup.
+2024 © Innei, Released under the MIT License.
 
-```
-npm run package
-```
-
-### Dev
-
-Start dev mode by Vite.
-
-```
-npm run dev
-```
-
-### Deploy
-
-Deploy example to GitHub Pages.
-
-```
-npm run deploy
-npm run publish
-```
-
-# Additional
-
-## ESBuild & React
-
-If you want to bundle React JSX with rollup. Add additional packages.
-
-```
-pnpm i -D rollup-plugin-esbuild
-```
-
-And, un-comment this in `rollup.config.ts`.
-
-```ts
-esbuild({
-  include: /\.[jt]sx?$/,
-  exclude: /node_modules/,
-  sourceMap: false,
-  minify: process.env.NODE_ENV === 'production',
-  target: 'es2017',
-  jsxFactory: 'React.createElement',
-  jsxFragment: 'React.Fragment',
-  define: {
-    __VERSION__: '"x.y.z"',
-  },
-  tsconfig: './src/tsconfig.json',
-  loaders: {
-    '.json': 'json',
-    '.js': 'jsx',
-  },
-}),
-```
-
-## PostCSS & CSS Module
-
-Enable default now.
-
-Nest selector is supported too.
-
-To build css extract a file not bundle into js, un-comment this.
-
-```ts
-css({
-  extract: true,
-})
-```
-
-
-
-## License
-
-2023 © Innei, MIT License.
-
-> [Personal Site](https://innei.in/) · GitHub [@Innei](https://github.com/innei/)
+> [Personal Website](https://innei.ren/) · GitHub [@Innei](https://github.com/innei/)
