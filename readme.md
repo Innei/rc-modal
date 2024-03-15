@@ -10,6 +10,8 @@ Beautifully designed Modal Component built with Radix UI and Tailwind CSS.
 
 ![](./demo/public/sheet.mp4)
 
+![sheet](https://github.com/Innei/rc-modal/assets/41265413/8820a227-4231-4b10-8c7a-afbea22b19bf)
+
 ## For more details..
 
 Please visit the [documentation](https://rc-modal.pages.dev/install).
