@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react'
-import type { ModalProps } from '~/modal/stacked/types'
+import type { ModalGlobalConfigurations, ModalProps } from '~/modal/types'
 import type { m, motion } from 'framer-motion'
 
 import { createContextState } from '~/lib/craete-context-state'
@@ -22,3 +22,8 @@ export const MotionComponentContext = createContext<{
 export const useMotionComponent = (): typeof m => {
   return useContext(MotionComponentContext).m
 }
+
+export const ModalGlobalConfigurationsContext =
+  createContext<ModalGlobalConfigurations>({})
+export const useModalGlobalConfigurations = () =>
+  useContext(ModalGlobalConfigurationsContext)

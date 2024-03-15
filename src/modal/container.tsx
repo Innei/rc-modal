@@ -1,12 +1,13 @@
 'use client'
 
-import { useMemo } from 'react'
+import { memo, useMemo } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import type { FC, PropsWithChildren } from 'react'
 import type { ModalStackContainerProps } from './types'
 
 import {
   IsMobileProvider,
+  ModalGlobalConfigurationsContext,
   ModalStackProvider,
   MotionComponentContext,
   SheetStackProvider,
@@ -19,7 +20,7 @@ import { Modal } from './modal'
 export const ModalStackContainer: FC<
   ModalStackContainerProps & PropsWithChildren
 > = (props) => {
-  const { m, isMobile, children } = props
+  const { m, sheet, children, ...globalModalConfig } = props
   return (
     <ModalStackProvider>
       <SheetStackProvider>
@@ -29,8 +30,18 @@ export const ModalStackContainer: FC<
             // Keep the value stable
             value={useMemo(() => ({ m }), [])}
           >
-            <ModalStack />
-            {typeof isMobile === 'boolean' && <SetMobile m={isMobile} />}
+            <ModalGlobalConfigurationsContext.Provider
+              // Keep the value stable
+              value={useMemo(
+                () => ({
+                  ...globalModalConfig,
+                }),
+                [],
+              )}
+            >
+              <ModalStack />
+            </ModalGlobalConfigurationsContext.Provider>
+            {typeof sheet === 'boolean' && <SetMobile m={sheet} />}
           </MotionComponentContext.Provider>
         </IsMobileProvider>
       </SheetStackProvider>
@@ -46,7 +57,7 @@ const SetMobile: FC<{ m: boolean }> = ({ m }) => {
   return null
 }
 
-const ModalStack = () => {
+const ModalStack = memo(() => {
   const stack = useModalStackInternal()
 
   return (
@@ -56,4 +67,4 @@ const ModalStack = () => {
       })}
     </AnimatePresence>
   )
-}
+})

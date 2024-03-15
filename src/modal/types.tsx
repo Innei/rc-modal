@@ -9,10 +9,10 @@ export interface ModalProps {
   modalClassName?: string
   modalContainerClassName?: string
 
+  /**
+   * If `true`, the modal will be full screen.
+   */
   max?: boolean
-
-  ////
-  sheetFullScreen?: boolean | 'half'
 
   wrapper?: FC
 }
@@ -20,11 +20,11 @@ export interface ModalStackOptions {
   wrapper?: FC
 }
 
-export interface ModalStackContainerProps {
+export interface ModalStackContainerProps extends ModalGlobalConfigurations {
   /**
    * If not passed, it will be always `false`, so will can't switch to sheet mode in mobile.
    */
-  isMobile?: boolean
+  sheet?: boolean
 
   // CloseIcon?: ReactNode
 
@@ -38,6 +38,12 @@ export interface ModalStackContainerProps {
    */
   m: typeof m | typeof motion
 }
+
+export interface ModalGlobalConfigurations
+  extends Omit<
+    ModalProps,
+    'title' | 'content' | 'CustomModalComponent' | 'max'
+  > {}
 
 export type ModalContentComponent<T> = FC<ModalContentPropsInternal & T>
 export type ModalContentPropsInternal = {

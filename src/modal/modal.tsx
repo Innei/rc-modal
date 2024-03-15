@@ -25,12 +25,13 @@ import { stopPropagation } from '~/lib/dom'
 import { clsxm } from '~/lib/helper'
 import {
   useIsMobile,
+  useModalGlobalConfigurations,
   useMotionComponent,
   useSetModalStack,
   useSheetStack,
 } from '~/providers'
 
-import { PresentSheet } from '../../sheet'
+import { PresentSheet } from '../sheet'
 import { ModalBEM } from './bem'
 
 const microReboundPreset: Spring = {
@@ -80,6 +81,7 @@ export const Modal: Component<{
     },
     [close],
   )
+  const globalConfig = useModalGlobalConfigurations()
 
   const {
     CustomModalComponent,
@@ -90,7 +92,8 @@ export const Modal: Component<{
     modalContainerClassName,
     wrapper: Wrapper = Fragment,
     max,
-  } = item
+  } = { ...globalConfig, ...item }
+
   const modalStyle = useMemo(() => ({ zIndex: 99 + index }), [index])
   const dismiss = useCallback(
     (e: SyntheticEvent) => {
