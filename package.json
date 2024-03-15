@@ -34,6 +34,10 @@
         "import": "./dist/index.js",
         "require": "./dist/index.cjs"
       },
+      "./dist/index.css": {
+        "import": "./dist/index.css",
+        "require": "./dist/index.css"
+      },
       "./motion": {
         "type": "./dist/motion.d.ts",
         "import": "./dist/motion.js",
