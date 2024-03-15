@@ -8,9 +8,13 @@ Beautifully designed Modal Component built with Radix UI and Tailwind CSS.
 
 ...and it's fully responsive!
 
-<video src="./demo/public/sheet.mp4" />
+![](./demo/public/sheet.mp4)
 
-### License
+## For more details..
+
+Please visit the [official documentation](https://rc-modal.innei.ren/).
+
+## License
 
 2024 © Innei, Released under the MIT License.
 
