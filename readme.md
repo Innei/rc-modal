@@ -12,7 +12,7 @@ Beautifully designed Modal Component built with Radix UI and Tailwind CSS.
 
 ## For more details..
 
-Please visit the [official documentation](https://rc-modal.innei.ren/).
+Please visit the [documentation](https://rc-modal.pages.dev/install).
 
 ## License
 
