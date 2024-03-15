@@ -1,5 +1,16 @@
 # CHANGELOG
 
+# [0.1.0](https://github.com/Innei/rc-modal/compare/v0.0.3...v0.1.0) (2024-03-15)
+
+
+### Bug Fixes
+
+* deps ([a71e462](https://github.com/Innei/rc-modal/commit/a71e46225856ff050a4ab3f9827f816564f0b697))
+* docs redirect ([de23f8c](https://github.com/Innei/rc-modal/commit/de23f8cb3bbc74f09459bf46fd8b8a0c6f83e6d5))
+* update x icon ([3b981bf](https://github.com/Innei/rc-modal/commit/3b981bfa8733ed88bfe32e199104a37e64316397))
+
+
+
 ## [0.0.3](https://github.com/Innei/rc-modal/compare/v0.0.2...v0.0.3) (2024-03-15)
 
 
