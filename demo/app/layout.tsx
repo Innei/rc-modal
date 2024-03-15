@@ -13,7 +13,6 @@ import { SiteHeader } from "@/components/site-header"
 import { ThemeProvider } from "@/components/theme-provider"
 
 import { Hero } from "./hero"
-import { Providers } from "./provider"
 
 export const metadata: Metadata = {
   title: {

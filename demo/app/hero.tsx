@@ -30,8 +30,6 @@ export const Hero = () => {
               title: "Modal",
               content: () => (
                 <>
-                  <IndexPage />
-
                   <p>
                     This is a modal. You can put anything you want in here. And
                     It can be nested.
