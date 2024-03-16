@@ -1,5 +1,14 @@
 # CHANGELOG
 
+# [0.2.0-alpha.0](https://github.com/Innei/rc-modal/compare/v0.1.0...v0.2.0-alpha.0) (2024-03-16)
+
+
+### Bug Fixes
+
+* directive ([bb8093a](https://github.com/Innei/rc-modal/commit/bb8093af5d4c28e92a0dae3437d50918078a8ee1))
+
+
+
 # [0.1.0](https://github.com/Innei/rc-modal/compare/v0.0.3...v0.1.0) (2024-03-15)
 
 
