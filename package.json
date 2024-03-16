@@ -49,9 +49,21 @@
         "import": "./dist/helpers/mobile-detector.js",
         "require": "./dist/helpers/mobile-detector.cjs"
       },
+      "./dist/*": {
+        "import": "./dist/*",
+        "require": "./dist/*"
+      },
       "./*": [
         "./*",
         "./*.d.ts"
+      ]
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./*"
       ]
     }
   },

@@ -57,7 +57,7 @@ module.exports = {
   content: [
     "app/**/*.{ts,tsx}",
     "components/**/*.{ts,tsx}",
-    "./node_modules/rc-modal-sheet/**/*.{ts,tsx}", // Add this line
+    "./node_modules/rc-modal-sheet/**/*.js", // Add this line
   ],
 }
 ```
@@ -67,7 +67,7 @@ module.exports = {
 If your project does not use TailwindCSS, you need to manually import the component's style file:
 
 ```tsx
-import "rc-modal-sheet/dist/index.css"
+import "rc-modal-sheet/index.css"
 ```
 
 Now you can use Modals in your components.
