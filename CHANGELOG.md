@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# [0.2.0](https://github.com/Innei/rc-modal/compare/v0.2.0-alpha.2...v0.2.0) (2024-03-16)
+
+
+
 # [0.2.0-alpha.2](https://github.com/Innei/rc-modal/compare/v0.2.0-alpha.1...v0.2.0-alpha.2) (2024-03-16)
 
 
