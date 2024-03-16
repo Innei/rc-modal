@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## [0.2.1](https://github.com/Innei/rc-modal/compare/v0.2.0...v0.2.1) (2024-03-16)
+
+
+### Bug Fixes
+
+* cts ([b48c026](https://github.com/Innei/rc-modal/commit/b48c026ad0e2b3c891b7bebb042a262a0e344f36))
+
+
+
 # [0.2.0](https://github.com/Innei/rc-modal/compare/v0.2.0-alpha.2...v0.2.0) (2024-03-16)
 
 
