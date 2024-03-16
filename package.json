@@ -27,32 +27,32 @@
   "publishConfig": {
     "main": "dist/index.cjs",
     "module": "dist/index.js",
-    "types": "types/index.d.ts",
+    "types": "dist/index.d.ts",
     "exports": {
       ".": {
-        "type": "./dist/index.d.ts",
         "import": "./dist/index.js",
         "require": "./dist/index.cjs"
       },
-      "./dist/index.css": {
+      "./index.css": {
         "import": "./dist/index.css",
         "require": "./dist/index.css"
       },
       "./motion": {
-        "type": "./dist/helpers/motion.d.ts",
         "import": "./dist/helpers/motion.js",
         "require": "./dist/helpers/motion.cjs"
       },
       "./m": {
-        "type": "./dist/helpers/m.d.ts",
         "import": "./dist/helpers/m.js",
         "require": "./dist/helpers/m.cjs"
       },
       "./mobile-detector": {
-        "type": "./dist/helpers/mobile-detector.d.ts",
         "import": "./dist/helpers/mobile-detector.js",
         "require": "./dist/helpers/mobile-detector.cjs"
-      }
+      },
+      "./*": [
+        "./*",
+        "./*.d.ts"
+      ]
     }
   },
   "husky": {
