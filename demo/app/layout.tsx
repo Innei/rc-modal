@@ -10,6 +10,8 @@ import "./index.css"
 import type { SVGProps } from "react"
 import Script from "next/script"
 import { PresentSheet } from "~/sheet"
+import { GeistMono } from "geist/font/mono"
+import { GeistSans } from "geist/font/sans"
 
 import { siteConfig } from "@/config/site"
 import { LeftAside } from "@/components/layout/sidebar"
@@ -73,7 +75,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
             async
           />
         </head>
-        <body className={"bg-background min-h-screen font-sans antialiased"}>
+        <body
+          className={`bg-background min-h-screen antialiased ${GeistSans.className}`}
+        >
           <ThemeProvider>
             <div className="relative flex min-h-screen flex-col">
               <SiteHeader />
