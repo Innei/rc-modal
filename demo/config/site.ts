@@ -6,8 +6,8 @@ export const siteConfig = {
     "Beautifully designed Modal Component built with Radix UI and Tailwind CSS.",
   mainNav: [],
   links: {
-    twitter: "https://twitter.com/shadcn",
-    github: "https://github.com/shadcn/ui",
-    docs: "https://ui.shadcn.com",
+    twitter: "https://twitter.com/__oQuery",
+    github: "https://github.com/Innei/rc-modal",
+    docs: "https://rc-modal.pages.dev",
   },
 }
