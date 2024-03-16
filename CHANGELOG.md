@@ -1,5 +1,14 @@
 # CHANGELOG
 
+# [0.2.0-alpha.2](https://github.com/Innei/rc-modal/compare/v0.2.0-alpha.1...v0.2.0-alpha.2) (2024-03-16)
+
+
+### Bug Fixes
+
+* exports ([170b0c9](https://github.com/Innei/rc-modal/commit/170b0c92b94ad0c4be151ce4a1bc7e33fddfcad7))
+
+
+
 # [0.2.0-alpha.1](https://github.com/Innei/rc-modal/compare/v0.2.0-alpha.0...v0.2.0-alpha.1) (2024-03-16)
 
 
