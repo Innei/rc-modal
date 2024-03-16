@@ -1,6 +1,7 @@
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
 import react from '@vitejs/plugin-react'
+import { preserveDirectives } from 'rollup-plugin-preserve-directives'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 
@@ -13,7 +14,12 @@ const globals = {
   ...(packageJson?.dependencies || {}),
 }
 export default defineConfig({
-  plugins: [react(), dts({ rollupTypes: true })],
+  plugins: [
+    react(),
+    dts({
+      // rollupTypes: true
+    }),
+  ],
   resolve: {
     alias: {
       '~': resolve(__dirname, './src'),
@@ -28,8 +34,6 @@ export default defineConfig({
         resolve(__dirname, 'src/helpers/mobile-detector.tsx'),
       ],
       name: 'RcModal',
-
-      // fileName: (format, entryName) => `${entryName}.${format}.js`,
     },
     rollupOptions: {
       external: [
@@ -44,7 +48,9 @@ export default defineConfig({
         globals: {
           RcModal: 'RcModal',
         },
+        preserveModules: true,
       },
+      plugins: [preserveDirectives({})],
     },
   },
 })

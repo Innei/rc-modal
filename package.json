@@ -39,19 +39,19 @@
         "require": "./dist/index.css"
       },
       "./motion": {
-        "type": "./dist/motion.d.ts",
-        "import": "./dist/motion.js",
-        "require": "./dist/motion.cjs"
+        "type": "./dist/helpers/motion.d.ts",
+        "import": "./dist/helpers/motion.js",
+        "require": "./dist/helpers/motion.cjs"
       },
       "./m": {
-        "type": "./dist/m.d.ts",
-        "import": "./dist/m.js",
-        "require": "./dist/m.cjs"
+        "type": "./dist/helpers/m.d.ts",
+        "import": "./dist/helpers/m.js",
+        "require": "./dist/helpers/m.cjs"
       },
       "./mobile-detector": {
-        "type": "./dist/mobile-detector.d.ts",
-        "import": "./dist/mobile-detector.js",
-        "require": "./dist/mobile-detector.cjs"
+        "type": "./dist/helpers/mobile-detector.d.ts",
+        "import": "./dist/helpers/mobile-detector.js",
+        "require": "./dist/helpers/mobile-detector.cjs"
       }
     }
   },
@@ -90,7 +90,6 @@
     "@vitejs/plugin-react": "4.2.1",
     "dts-bundle-generator": "^9.3.1",
     "esbuild": "0.20.2",
-    "foxact": "0.2.33",
     "framer-motion": "11.0.13",
     "husky": "9.0.11",
     "lint-staged": "15.2.2",
@@ -99,6 +98,7 @@
     "postcss-nested": "6.0.1",
     "prettier": "3.2.5",
     "react": "18.2.0",
+    "rollup-plugin-preserve-directives": "0.4.0",
     "tailwindcss": "3.4.1",
     "tsc-alias": "1.8.8",
     "tslib": "2.6.2",

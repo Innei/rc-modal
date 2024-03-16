@@ -1,0 +1,98 @@
+## Reusing components and abstractions
+
+The advantage of invoking Modal imperatively is that it's easy to encapsulate component logic. For example, we can quickly refactor and encapsulate a declarative Modal in scenarios where it is used multiple times.
+
+```tsx
+const MyModal = ({
+  open,
+  onOpenChange,
+}: {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+}) => {
+  return (
+    <Modal
+      title="A declaratively modal"
+      open={open}
+      onOpenChange={onOpenChange}
+    >
+      <p>
+        This is a modal. You can put anything you want in here. And It can be
+        nested.
+      </p>
+    </Modal>
+  )
+}
+const Component1 = () => {
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <Button
+        onClick={() => {
+          setOpen(true)
+        }}
+      >
+        Open Modal
+      </Button>
+
+      <MyModal open={open} onOpenChange={setOpen} />
+    </>
+  )
+}
+
+const Component2 = () => {
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <Button
+        onClick={() => {
+          setOpen(true)
+        }}
+      >
+        Other biz button also use modal
+      </Button>
+
+      <MyModal open={open} onOpenChange={setOpen} />
+    </>
+  )
+}
+```
+
+Refactoring into an imperative call Hook, so you no longer have to control the opening and closing state of the Modal within the component.
+
+```tsx
+const useMyModal = () => {
+  const { present } = useModalStack()
+  return useCallback(() => {
+    present({
+      title: "My Modal",
+      content: () => (
+        <p>
+          This is a modal. You can put anything you want in here. And It can be
+          nested.
+        </p>
+      ),
+    })
+  }, [present])
+}
+
+const Component1 = () => {
+  const showModal = useMyModal()
+  return (
+    <>
+      <Button onClick={showModal}>Open Modal</Button>
+    </>
+  )
+}
+
+const Component2 = () => {
+  const showModal = useMyModal()
+  return (
+    <>
+      <Button onClick={showModal}>Other biz button also use modal</Button>
+    </>
+  )
+}
+```
+
+Isn't it more concise and convenient to use?
