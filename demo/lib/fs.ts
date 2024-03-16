@@ -39,5 +39,7 @@ export const buildFsTree = () => {
     tree.push({ to: `/${path}`, title: title || "", order: yaml.order })
   }
 
-  return tree.sort((a, b) => a.order - b.order)
+  return tree
+    .map((i) => ({ ...i, order: i.order || 10e3 }))
+    .sort((a, b) => a.order - b.order)
 }
