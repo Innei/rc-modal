@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useState } from 'react'
 
 const throwError = () => {
   throw 'setState must be used within a Provider with a value'

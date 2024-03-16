@@ -1,5 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog'
-import { forwardRef } from 'react'
+import React, { forwardRef } from 'react'
 import type { LegacyRef } from 'react'
 
 import { useMotionComponent } from '~/providers'

@@ -8,7 +8,6 @@
     "type": "git",
     "url": "https://github.com/Innei/rc-modal"
   },
-  "type": "module",
   "main": "./src/index.ts",
   "exports": {
     ".": {
@@ -25,33 +24,33 @@
     "src"
   ],
   "publishConfig": {
-    "main": "dist/index.cjs",
-    "module": "dist/index.js",
+    "main": "dist/index.js",
+    "module": "dist/index.mjs",
     "types": "dist/index.d.ts",
     "exports": {
       ".": {
-        "import": "./dist/index.js",
-        "require": "./dist/index.cjs"
+        "require": "./dist/index.mjs",
+        "import": "./dist/index.js"
       },
       "./index.css": {
-        "import": "./dist/index.css",
-        "require": "./dist/index.css"
+        "require": "./dist/index.css",
+        "import": "./dist/index.css"
       },
       "./motion": {
-        "import": "./dist/helpers/motion.js",
-        "require": "./dist/helpers/motion.cjs"
+        "require": "./dist/helpers/motion.js",
+        "import": "./dist/helpers/motion.mjs"
       },
       "./m": {
-        "import": "./dist/helpers/m.js",
-        "require": "./dist/helpers/m.cjs"
+        "require": "./dist/helpers/m.js",
+        "import": "./dist/helpers/m.mjs"
       },
       "./mobile-detector": {
-        "import": "./dist/helpers/mobile-detector.js",
-        "require": "./dist/helpers/mobile-detector.cjs"
+        "require": "./dist/helpers/mobile-detector.js",
+        "import": "./dist/helpers/mobile-detector.mjs"
       },
       "./dist/*": {
-        "import": "./dist/*",
-        "require": "./dist/*"
+        "require": "./dist/*",
+        "import": "./dist/*"
       },
       "./*": [
         "./*",
@@ -63,6 +62,7 @@
     "*": {
       "*": [
         "./dist/*",
+        "./dist/helpers/*",
         "./*"
       ]
     }

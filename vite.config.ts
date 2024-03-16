@@ -20,7 +20,7 @@ export default defineConfig({
       // rollupTypes: true
 
       beforeWriteFile: (filePath, content) => {
-        writeFileSync(filePath.replace('.d.ts', '.d.cts'), content)
+        writeFileSync(filePath.replace('.d.ts', '.d.mts'), content)
         return { filePath, content }
       },
     }),
