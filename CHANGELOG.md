@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## [0.2.2](https://github.com/Innei/rc-modal/compare/v0.2.1...v0.2.2) (2024-03-16)
+
+
+### Bug Fixes
+
+* bundle ([a98a465](https://github.com/Innei/rc-modal/commit/a98a4652a4aec06426b344510f99654a51d1d666))
+* doc order ([dae41e0](https://github.com/Innei/rc-modal/commit/dae41e08492f70c157c042587ffb24f4030b898c))
+* lockfile ([2fe385f](https://github.com/Innei/rc-modal/commit/2fe385f3ec12969ca9a3ff9453398a6126a3f8d9))
+* site config ([f54d0fc](https://github.com/Innei/rc-modal/commit/f54d0fc35c5010d260c25edba73d0d40db1eccc9))
+* update font ([458bfd2](https://github.com/Innei/rc-modal/commit/458bfd22f5a029f0d6fd79dd3d7a0a99e3ee6c09))
+* update pkg ([ce7bbce](https://github.com/Innei/rc-modal/commit/ce7bbce2423e3dc78b56e1a9e28e80c4337e2d62))
+
+
+
 ## [0.2.1](https://github.com/Innei/rc-modal/compare/v0.2.0...v0.2.1) (2024-03-16)
 
 
