@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## [0.2.4](https://github.com/Innei/rc-modal/compare/v0.2.3...v0.2.4) (2024-03-18)
+
+
+### Bug Fixes
+
+* export ([5de5e00](https://github.com/Innei/rc-modal/commit/5de5e00f4d7fc966677fcbcb74f8f813eceed1ad))
+* update mjs ([27a2462](https://github.com/Innei/rc-modal/commit/27a2462435ff2002440c0c88703ec35be00bc209))
+
+
+
 ## [0.2.3](https://github.com/Innei/rc-modal/compare/v0.2.2...v0.2.3) (2024-03-18)
 
 
