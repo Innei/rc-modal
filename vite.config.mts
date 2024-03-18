@@ -1,5 +1,6 @@
 import { readFileSync, writeFileSync } from 'fs'
 import { resolve } from 'path'
+import { fileURLToPath } from 'url'
 import react from '@vitejs/plugin-react'
 import { preserveDirectives } from 'rollup-plugin-preserve-directives'
 import { defineConfig } from 'vite'
@@ -9,15 +10,19 @@ const packageJson = JSON.parse(
   readFileSync('./package.json', { encoding: 'utf-8' }),
 )
 
+const __dirname = fileURLToPath(new URL('.', import.meta.url))
+
 const globals = {
   // @ts-ignore
   ...(packageJson?.dependencies || {}),
 }
+// eslint-disable-next-line import/no-default-export
 export default defineConfig({
   plugins: [
     react(),
     dts({
       // rollupTypes: true
+      insertTypesEntry: true,
 
       beforeWriteFile: (filePath, content) => {
         writeFileSync(filePath.replace('.d.ts', '.d.mts'), content)

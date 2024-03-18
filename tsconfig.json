@@ -35,8 +35,6 @@
     "node_modules/*",
     "lib/*",
     "example/*",
-    "vitest.config.ts",
-    "vite.config.ts",
     "tailwind.config.ts",
     "demo/*"
   ]
