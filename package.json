@@ -21,7 +21,8 @@
     "dist",
     "readme.md",
     "tsconfig.json",
-    "src"
+    "src",
+    "styles.d.ts"
   ],
   "publishConfig": {
     "main": "dist/index.js",
@@ -29,12 +30,18 @@
     "types": "dist/index.d.ts",
     "exports": {
       ".": {
-        "require": "./dist/index.mjs",
-        "import": "./dist/index.js"
+        "require": "./dist/index.js",
+        "import": "./dist/index.mjs"
       },
       "./index.css": {
-        "require": "./dist/index.css",
-        "import": "./dist/index.css"
+        "require": {
+          "type": "./styles.d.ts",
+          "default": "./dist/index.css"
+        },
+        "import": {
+          "type": "./styles.d.ts",
+          "default": "./dist/index.css"
+        }
       },
       "./motion": {
         "require": "./dist/helpers/motion.js",
