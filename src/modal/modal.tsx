@@ -108,7 +108,9 @@ export const Modal: Component<{
   const animateController = useAnimationControls()
   useEffect(() => {
     if (isMobile) return
-    animateController.start(enterStyle)
+    requestAnimationFrame(() => {
+      animateController.start(enterStyle)
+    })
   }, [animateController, isMobile])
   const noticeModal = useCallback(() => {
     animateController
@@ -176,6 +178,7 @@ export const Modal: Component<{
         <Dialog.Root open onOpenChange={onClose}>
           <Dialog.Portal>
             <DialogOverlay zIndex={20} />
+            <Dialog.Title className="sr-only">{title}</Dialog.Title>
             <Dialog.Content asChild>
               <div
                 className={clsxm(

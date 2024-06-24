@@ -2,9 +2,8 @@
 
 import { useEffect } from 'react'
 
-import { useSetIsMobile } from '~/providers/index.js'
-
 import { useIsMobile } from '../hooks/use-is-mobile.js'
+import { useSetIsMobile } from '../providers/index.js'
 
 export const MobileDetector = () => {
   const set = useSetIsMobile()
