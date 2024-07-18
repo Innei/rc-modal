@@ -1,5 +1,19 @@
 # CHANGELOG
 
+# [0.3.0](https://github.com/Innei/rc-modal/compare/v0.2.4...v0.3.0) (2024-07-18)
+
+
+### Bug Fixes
+
+* update deps ([d509263](https://github.com/Innei/rc-modal/commit/d50926314aa15952de4384d908b5ce01240afcc5))
+
+
+### Features
+
+* update modal ([434081b](https://github.com/Innei/rc-modal/commit/434081b8713b352f1a8e8fce56be9792655d45e4))
+
+
+
 ## [0.2.4](https://github.com/Innei/rc-modal/compare/v0.2.3...v0.2.4) (2024-03-18)
 
 
