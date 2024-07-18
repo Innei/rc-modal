@@ -4,6 +4,7 @@ import * as Dialog from '@radix-ui/react-dialog'
 import React, {
   createContext,
   createElement,
+  forwardRef,
   Fragment,
   memo,
   useCallback,
@@ -11,12 +12,11 @@ import React, {
   useMemo,
   useRef,
 } from 'react'
-import { useAnimationControls } from 'framer-motion'
+import { useAnimationControls, useDragControls } from 'framer-motion'
 import type { Spring, Target } from 'framer-motion'
-import type { RefObject, SyntheticEvent } from 'react'
+import type { PointerEventHandler, RefObject, SyntheticEvent } from 'react'
 import type { ModalContentPropsInternal, ModalProps } from './types'
 
-import { DialogOverlay } from '~/dialog/DialogOverlay'
 import { Divider } from '~/divider'
 import { useEventCallback } from '~/hooks/use-event-callback'
 import { useIsUnMounted } from '~/hooks/use-is-unmounted'
@@ -26,6 +26,7 @@ import { clsxm } from '~/lib/helper'
 import {
   useIsMobile,
   useModalGlobalConfigurations,
+  useModalStackInternal,
   useMotionComponent,
   useSetModalStack,
   useSheetStack,
@@ -33,6 +34,7 @@ import {
 
 import { PresentSheet } from '../sheet'
 import { ModalBEM } from './bem'
+import { MODAL_STACK_Z_INDEX } from './constants'
 
 const microReboundPreset: Spring = {
   type: 'spring',
@@ -60,202 +62,264 @@ export const CurrentModalContext = createContext<CurrentModalContentProps>(
 export const Modal: Component<{
   item: ModalProps & { id: string }
   index: number
-
+  isTop: boolean
   onClose?: (open: boolean) => void
-}> = memo(({ item, index, onClose: onPropsClose, children }) => {
-  const m = useMotionComponent()
+}> = memo(
+  forwardRef(
+    ({ item, index, onClose: onPropsClose, children, isTop }, ref: any) => {
+      const m = useMotionComponent()
 
-  const setStack = useSetModalStack()
-  const close = useEventCallback(() => {
-    setStack((p) => {
-      return p.filter((modal) => modal.id !== item.id)
-    })
-    onPropsClose?.(false)
-  })
-
-  const onClose = useCallback(
-    (open: boolean): void => {
-      if (!open) {
-        close()
-      }
-    },
-    [close],
-  )
-  const globalConfig = useModalGlobalConfigurations()
-
-  const {
-    CustomModalComponent,
-    modalClassName,
-    content,
-    title,
-    clickOutsideToDismiss,
-    modalContainerClassName,
-    wrapper: Wrapper = Fragment,
-    max,
-  } = { ...globalConfig, ...item }
-
-  const modalStyle = useMemo(() => ({ zIndex: 99 + index }), [index])
-  const dismiss = useCallback(
-    (e: SyntheticEvent) => {
-      stopPropagation(e)
-      close()
-    },
-    [close],
-  )
-  const isMobile = useIsMobile()
-
-  const isUnmounted = useIsUnMounted()
-  const animateController = useAnimationControls()
-  useEffect(() => {
-    if (isMobile) return
-    requestAnimationFrame(() => {
-      animateController.start(enterStyle)
-    })
-  }, [animateController, isMobile])
-  const noticeModal = useCallback(() => {
-    animateController
-      .start({
-        scale: 1.05,
-        transition: {
-          duration: 0.06,
-        },
-      })
-      .then(() => {
-        if (isUnmounted.current) return
-        animateController.start({
-          scale: 1,
+      const setStack = useSetModalStack()
+      const close = useEventCallback(() => {
+        setStack((p) => {
+          return p.filter((modal) => modal.id !== item.id)
         })
+        onPropsClose?.(false)
       })
-  }, [animateController])
+      const zIndexStyle = useMemo(
+        () => ({ zIndex: MODAL_STACK_Z_INDEX + index + 1 }),
+        [index],
+      )
+      const modalStack = useModalStackInternal()
+      const currentIsClosing = modalStack.every((modal) => modal.id !== item.id)
 
-  const modalContentRef = useRef<HTMLDivElement>(null)
-  const ModalProps: ModalContentPropsInternal = useMemo(
-    () => ({
-      dismiss: close,
-    }),
-    [close],
-  )
+      const onClose = useCallback(
+        (open: boolean): void => {
+          if (!open) {
+            close()
+          }
+        },
+        [close],
+      )
+      const globalConfig = useModalGlobalConfigurations()
 
-  const ModalContextProps = useMemo<CurrentModalContentProps>(
-    () => ({
-      ...ModalProps,
-      ref: modalContentRef,
-    }),
-    [ModalProps],
-  )
-  const finalChildren = (
-    <CurrentModalContext.Provider value={ModalContextProps}>
-      {children ? children : createElement(content, ModalProps)}
-    </CurrentModalContext.Provider>
-  )
+      const {
+        CustomModalComponent,
+        modalClassName,
+        content,
+        title,
+        clickOutsideToDismiss,
+        modalContainerClassName,
+        wrapper: Wrapper = Fragment,
+        max,
+      } = { ...globalConfig, ...item }
 
-  const sheetStack = useSheetStack()
-  if (isMobile) {
-    const sheetLength = sheetStack.length
+      const dismiss = useCallback(
+        (e: SyntheticEvent) => {
+          stopPropagation(e)
+          close()
+        },
+        [close],
+      )
+      const isMobile = useIsMobile()
 
-    return (
-      <Wrapper>
-        <PresentSheet
-          title={title}
-          defaultOpen
-          zIndex={1000 + sheetLength}
-          onOpenChange={(open) => {
-            if (!open) {
-              setTimeout(() => {
-                close()
-              }, 1000)
-            }
-          }}
-          content={finalChildren}
-        />
-      </Wrapper>
-    )
-  }
+      const isUnmounted = useIsUnMounted()
+      const animateController = useAnimationControls()
+      useEffect(() => {
+        if (isMobile) return
+        requestAnimationFrame(() => {
+          animateController.start(enterStyle)
+        })
+      }, [animateController, isMobile])
+      const noticeModal = useCallback(() => {
+        animateController
+          .start({
+            scale: 1.05,
+            transition: {
+              duration: 0.06,
+            },
+          })
+          .then(() => {
+            if (isUnmounted.current) return
+            animateController.start({
+              scale: 1,
+            })
+          })
+      }, [animateController])
 
-  if (CustomModalComponent) {
-    return (
-      <Wrapper>
-        <Dialog.Root open onOpenChange={onClose}>
-          <Dialog.Portal>
-            <DialogOverlay zIndex={20} />
-            <Dialog.Title className="sr-only">{title}</Dialog.Title>
-            <Dialog.Content asChild>
-              <div
-                className={clsxm(
-                  ModalBEM.root,
-                  'fixed inset-0 z-[20] overflow-auto',
-                  modalContainerClassName,
-                )}
-                onClick={clickOutsideToDismiss ? dismiss : undefined}
-              >
-                <div className="contents" onClick={stopPropagation}>
-                  <CustomModalComponent>{finalChildren}</CustomModalComponent>
-                </div>
-              </div>
-            </Dialog.Content>
-          </Dialog.Portal>
-        </Dialog.Root>
-      </Wrapper>
-    )
-  }
-  return (
-    <Wrapper>
-      <Dialog.Root open onOpenChange={onClose}>
-        <Dialog.Portal>
-          <DialogOverlay zIndex={20} />
-          <Dialog.Content asChild>
-            <div
-              className={clsxm(
-                ModalBEM.root,
-                'fixed inset-0 z-[20] flex items-center justify-center',
-                modalContainerClassName,
-              )}
-              onClick={clickOutsideToDismiss ? dismiss : noticeModal}
-            >
-              <m.div
-                style={modalStyle}
-                exit={initialStyle}
-                initial={initialStyle}
-                animate={animateController}
-                transition={microReboundPreset}
-                className={clsxm(
-                  ModalBEM.content,
-                  'relative flex flex-col overflow-hidden rounded-lg',
-                  'bg-zinc-50/80 dark:bg-zinc-950/80',
-                  'p-2 shadow-2xl shadow-gray-300 backdrop-blur-sm dark:shadow-gray-800/50',
-                  max
-                    ? 'h-[90vh] w-[90vw]'
-                    : 'max-h-[70vh] min-w-[300px] max-w-[90vw] lg:max-h-[calc(100vh-20rem)] lg:max-w-[70vw]',
+      const modalContentRef = useRef<HTMLDivElement>(null)
+      const ModalProps: ModalContentPropsInternal = useMemo(
+        () => ({
+          dismiss: close,
+        }),
+        [close],
+      )
 
-                  'border border-slate-200 dark:border-neutral-800',
-                  modalClassName,
-                )}
-                onClick={stopPropagation}
-              >
-                <Dialog.Title
-                  className={`${ModalBEM.title} flex-shrink-0 px-4 py-2 text-lg font-medium`}
-                >
-                  {title}
-                </Dialog.Title>
-                <Divider className="my-2 flex-shrink-0 border-slate-200 opacity-80 dark:border-neutral-800" />
+      const ModalContextProps = useMemo<CurrentModalContentProps>(
+        () => ({
+          ...ModalProps,
+          ref: modalContentRef,
+        }),
+        [ModalProps],
+      )
+      const finalChildren = (
+        <CurrentModalContext.Provider value={ModalContextProps}>
+          {children ? children : createElement(content, ModalProps)}
+        </CurrentModalContext.Provider>
+      )
 
+      useEffect(() => {
+        if (currentIsClosing) {
+          // Radix dialog will block pointer events
+          document.body.style.pointerEvents = 'auto'
+        }
+      }, [currentIsClosing])
+
+      const edgeElementRef = useRef<HTMLDivElement>(null)
+
+      const dragController = useDragControls()
+      const handleDrag: PointerEventHandler<HTMLDivElement> = useCallback(
+        (e) => {
+          dragController.start(e)
+        },
+        [dragController],
+      )
+
+      useEffect(() => {
+        if (isTop) return
+        animateController.start({
+          scale: 0.96,
+          y: 10,
+        })
+        return () => {
+          try {
+            animateController.stop()
+            animateController.start({
+              scale: 1,
+              y: 0,
+            })
+          } catch {
+            /* empty */
+          }
+        }
+      }, [isTop])
+
+      const sheetStack = useSheetStack()
+      if (isMobile) {
+        const sheetLength = sheetStack.length
+
+        return (
+          <Wrapper>
+            <PresentSheet
+              title={title}
+              defaultOpen
+              zIndex={1000 + sheetLength}
+              onOpenChange={(open) => {
+                if (!open) {
+                  setTimeout(() => {
+                    close()
+                  }, 1000)
+                }
+              }}
+              content={finalChildren}
+            />
+          </Wrapper>
+        )
+      }
+
+      if (CustomModalComponent) {
+        return (
+          <Wrapper>
+            <Dialog.Root open onOpenChange={onClose}>
+              <Dialog.Portal>
+                <Dialog.Title className="sr-only">{title}</Dialog.Title>
+                <Dialog.Content asChild>
+                  <div
+                    ref={ref}
+                    className={clsxm(
+                      ModalBEM.root,
+                      'fixed inset-0 z-[20] overflow-auto',
+                      currentIsClosing && 'pointer-events-none',
+                      modalContainerClassName,
+                    )}
+                    onClick={clickOutsideToDismiss ? dismiss : undefined}
+                  >
+                    <div className="contents" onClick={stopPropagation}>
+                      <CustomModalComponent>
+                        {finalChildren}
+                      </CustomModalComponent>
+                    </div>
+                  </div>
+                </Dialog.Content>
+              </Dialog.Portal>
+            </Dialog.Root>
+          </Wrapper>
+        )
+      }
+      return (
+        <Wrapper>
+          <Dialog.Root open onOpenChange={onClose}>
+            <Dialog.Portal>
+              <Dialog.Content asChild>
                 <div
-                  className={`${ModalBEM.children} min-h-0 flex-shrink flex-grow overflow-auto px-4 py-2`}
+                  ref={edgeElementRef}
+                  className={clsxm(
+                    ModalBEM.root,
+                    'fixed inset-0 z-[20] flex items-center justify-center',
+                    currentIsClosing && 'pointer-events-none',
+                    modalContainerClassName,
+                  )}
+                  onClick={clickOutsideToDismiss ? dismiss : noticeModal}
+                  style={zIndexStyle}
                 >
-                  {finalChildren}
-                </div>
+                  <m.div
+                    ref={ref}
+                    style={zIndexStyle}
+                    exit={initialStyle}
+                    initial={initialStyle}
+                    animate={animateController}
+                    transition={microReboundPreset}
+                    className={clsxm(
+                      ModalBEM.content,
+                      'relative flex flex-col overflow-hidden rounded-lg',
+                      'bg-zinc-50/80 dark:bg-zinc-950/80',
+                      'p-2 shadow-2xl shadow-gray-300 backdrop-blur-sm dark:shadow-gray-800/50',
+                      max
+                        ? 'h-[90vh] w-[90vw]'
+                        : 'max-h-[70vh] min-w-[300px] max-w-[90vw] lg:max-h-[calc(100vh-20rem)] lg:max-w-[70vw]',
 
-                <Dialog.DialogClose
-                  onClick={close}
-                  className={`${ModalBEM.close} absolute right-0 top-0 z-[9] p-5`}
-                >
-                  {CloseIcon}
-                </Dialog.DialogClose>
-              </m.div>
-            </div>
-          </Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
-    </Wrapper>
-  )
-})
+                      'border border-slate-200 dark:border-neutral-800',
+                      modalClassName,
+                    )}
+                    onClick={stopPropagation}
+                    drag
+                    dragControls={dragController}
+                    dragElastic={0}
+                    dragListener={false}
+                    dragMomentum={false}
+                    dragConstraints={edgeElementRef}
+                    whileDrag={{
+                      cursor: 'grabbing',
+                    }}
+                  >
+                    <div
+                      className="relative flex items-center"
+                      onPointerDownCapture={handleDrag}
+                    >
+                      <Dialog.Title className="flex shrink-0 grow items-center gap-2 px-4 py-1 text-lg font-semibold">
+                        <span>{title}</span>
+                      </Dialog.Title>
+                      <Dialog.DialogClose
+                        onClick={close}
+                        className={`${ModalBEM.close} absolute right-0 top-0 z-[9] p-2`}
+                      >
+                        {CloseIcon}
+                      </Dialog.DialogClose>
+                    </div>
+                    <Divider className="my-2 flex-shrink-0 border-slate-200 opacity-80 dark:border-neutral-800" />
+
+                    <div
+                      className={`${ModalBEM.children} min-h-0 flex-shrink flex-grow overflow-auto px-4 py-2`}
+                    >
+                      {finalChildren}
+                    </div>
+                  </m.div>
+                </div>
+              </Dialog.Content>
+            </Dialog.Portal>
+          </Dialog.Root>
+        </Wrapper>
+      )
+    },
+  ),
+)

@@ -8,7 +8,9 @@ import type { ModalProps } from './types'
 import { clsxm } from '~/lib/helper'
 import { useModalStackInternal } from '~/providers'
 
+import { MODAL_STACK_Z_INDEX } from './constants'
 import { Modal } from './modal'
+import { ModalOverlay } from './overlay'
 
 export interface DeclarativeModalProps extends Omit<ModalProps, 'content'> {
   open?: boolean
@@ -41,9 +43,12 @@ const DeclarativeModalImpl: FC<DeclarativeModalProps> = ({
   return (
     <AnimatePresence>
       {open && (
-        <Modal onClose={onOpenChange} index={index} item={item}>
-          {children}
-        </Modal>
+        <>
+          <ModalOverlay zIndex={MODAL_STACK_Z_INDEX - 10 + index} />
+          <Modal onClose={onOpenChange} isTop index={index} item={item}>
+            {children}
+          </Modal>
+        </>
       )}
     </AnimatePresence>
   )

@@ -17,15 +17,29 @@ export const useModalStack = (options?: ModalStackOptions) => {
   return {
     present: useCallback(
       (props: ModalProps & { id?: string }) => {
-        const modalId = `${id}-${++currentCount.current}`
-        setModalStack((p) => {
+        const fallbackModelId = `${id}-${++currentCount.current}`
+        const modalId = props.id ?? fallbackModelId
+
+        setModalStack((currentStack) => {
+          const existingModal = currentStack.find((item) => item.id === modalId)
+
+          if (existingModal) {
+            // Move to top
+            const index = currentStack.indexOf(existingModal)
+            return [
+              ...currentStack.slice(0, index),
+              ...currentStack.slice(index + 1),
+              existingModal,
+            ]
+          }
+
           const modalProps = {
             ...props,
             id: props.id ?? modalId,
             wrapper,
           }
           modalIdToPropsMap[modalProps.id] = modalProps
-          return p.concat(modalProps)
+          return currentStack.concat(modalProps)
         })
 
         return () => {

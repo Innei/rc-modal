@@ -2,15 +2,14 @@ import "@/styles/globals.css"
 
 import { Metadata } from "next"
 import { clsxm } from "~/lib/helper"
-import { MobileDetector } from "rc-modal-sheet/src/helpers/mobile-detector"
-import { ModalStackContainer } from "rc-modal-sheet/src/helpers/motion"
+import { MobileDetector } from "rc-modal-sheet/mobile-detector"
+import { ModalStackContainer } from "rc-modal-sheet/motion"
 
 import "./index.css"
 
 import type { SVGProps } from "react"
 import Script from "next/script"
 import { PresentSheet } from "~/sheet"
-import { GeistMono } from "geist/font/mono"
 import { GeistSans } from "geist/font/sans"
 
 import { siteConfig } from "@/config/site"
@@ -81,7 +80,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <ThemeProvider>
             <div className="relative flex min-h-screen flex-col">
               <SiteHeader />
-              <ModalStackContainer clickOutsideToDismiss>
+              <ModalStackContainer overlay={false} clickOutsideToDismiss>
                 <MobileDetector />
                 <div className="flex-1">
                   <Hero />
