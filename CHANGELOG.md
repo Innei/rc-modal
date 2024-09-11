@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## [0.3.1](https://github.com/Innei/rc-modal/compare/v0.3.0...v0.3.1) (2024-09-11)
+
+
+### Bug Fixes
+
+* prevent dismiss when select text ([e6b4b20](https://github.com/Innei/rc-modal/commit/e6b4b20bb6a424996b2a84532c761267d13096bf))
+
+
+
 # [0.3.0](https://github.com/Innei/rc-modal/compare/v0.2.4...v0.3.0) (2024-07-18)
 
 
