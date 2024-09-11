@@ -80,6 +80,7 @@ export const Modal: Component<{
         () => ({ zIndex: MODAL_STACK_Z_INDEX + index + 1 }),
         [index],
       )
+
       const modalStack = useModalStackInternal()
       const currentIsClosing = modalStack.every((modal) => modal.id !== item.id)
 
@@ -158,6 +159,29 @@ export const Modal: Component<{
         </CurrentModalContext.Provider>
       )
 
+      const isSelectingRef = useRef(false)
+      const handleSelectStart = useCallback(() => {
+        isSelectingRef.current = true
+      }, [])
+      const handleDetectSelectEnd = useCallback(() => {
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            if (isSelectingRef.current) {
+              isSelectingRef.current = false
+            }
+          })
+        })
+      }, [])
+
+      const handleClickOutsideToDismiss = useCallback(
+        (e: SyntheticEvent) => {
+          if (isSelectingRef.current) return
+          const fn = clickOutsideToDismiss ? dismiss : noticeModal
+          fn?.(e)
+        },
+        [clickOutsideToDismiss, dismiss, noticeModal],
+      )
+
       useEffect(() => {
         if (currentIsClosing) {
           // Radix dialog will block pointer events
@@ -232,9 +256,15 @@ export const Modal: Component<{
                       currentIsClosing && 'pointer-events-none',
                       modalContainerClassName,
                     )}
-                    onClick={clickOutsideToDismiss ? dismiss : undefined}
+                    onClick={handleClickOutsideToDismiss}
+                    onPointerUp={handleDetectSelectEnd}
                   >
-                    <div className="contents" onClick={stopPropagation}>
+                    <div
+                      className="contents"
+                      onClick={stopPropagation}
+                      onSelect={handleSelectStart}
+                      onKeyUp={handleSelectStart}
+                    >
                       <CustomModalComponent>
                         {finalChildren}
                       </CustomModalComponent>
@@ -259,7 +289,8 @@ export const Modal: Component<{
                     currentIsClosing && 'pointer-events-none',
                     modalContainerClassName,
                   )}
-                  onClick={clickOutsideToDismiss ? dismiss : noticeModal}
+                  onClick={handleClickOutsideToDismiss}
+                  onPointerUp={handleDetectSelectEnd}
                   style={zIndexStyle}
                 >
                   <m.div
@@ -282,6 +313,8 @@ export const Modal: Component<{
                       modalClassName,
                     )}
                     onClick={stopPropagation}
+                    onSelect={handleSelectStart}
+                    onKeyUp={handleSelectStart}
                     drag
                     dragControls={dragController}
                     dragElastic={0}
