@@ -154,9 +154,7 @@ export const Modal: Component<{
         [ModalProps],
       )
       const finalChildren = (
-        <CurrentModalContext.Provider value={ModalContextProps}>
-          {children ? children : createElement(content, ModalProps)}
-        </CurrentModalContext.Provider>
+        <>{children ? children : createElement(content, ModalProps)}</>
       )
 
       const isSelectingRef = useRef(false)
@@ -265,9 +263,11 @@ export const Modal: Component<{
                       onSelect={handleSelectStart}
                       onKeyUp={handleSelectStart}
                     >
-                      <CustomModalComponent>
-                        {finalChildren}
-                      </CustomModalComponent>
+                      <CurrentModalContext.Provider value={ModalContextProps}>
+                        <CustomModalComponent>
+                          {finalChildren}
+                        </CustomModalComponent>
+                      </CurrentModalContext.Provider>
                     </div>
                   </div>
                 </Dialog.Content>
@@ -344,7 +344,9 @@ export const Modal: Component<{
                     <div
                       className={`${ModalBEM.children} min-h-0 flex-shrink flex-grow overflow-auto px-4 py-2`}
                     >
-                      {finalChildren}
+                      <CurrentModalContext.Provider value={ModalContextProps}>
+                        {finalChildren}
+                      </CurrentModalContext.Provider>
                     </div>
                   </m.div>
                 </div>
