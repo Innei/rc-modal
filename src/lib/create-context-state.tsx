@@ -4,7 +4,7 @@ const throwError = () => {
   throw 'setState must be used within a Provider with a value'
 }
 
-export function createContextState<T>(initialState: T) {
+export function createContextState<T>(initialState: T, displayName?: string) {
   const StateContext = createContext<T>(initialState)
   const DispatchContext =
     createContext<React.Dispatch<React.SetStateAction<T>>>(throwError)
@@ -23,6 +23,8 @@ export function createContextState<T>(initialState: T) {
       </StateContext.Provider>
     )
   }
+
+  Provider.displayName = displayName
 
   return [
     Provider,

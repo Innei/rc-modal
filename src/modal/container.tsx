@@ -1,7 +1,7 @@
 'use client'
 
+import { AnimatePresence } from 'motion/react'
 import React, { memo, useMemo } from 'react'
-import { AnimatePresence } from 'framer-motion'
 import type { FC, PropsWithChildren } from 'react'
 import type { ModalStackContainerProps } from './types'
 

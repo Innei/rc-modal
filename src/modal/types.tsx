@@ -1,4 +1,4 @@
-import type { m, motion } from 'framer-motion'
+import type { m, motion } from 'motion/react'
 import type { FC, PropsWithChildren } from 'react'
 
 export interface ModalProps {

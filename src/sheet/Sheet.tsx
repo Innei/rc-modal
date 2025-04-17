@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { Drawer } from 'vaul'
 import type { FC, PropsWithChildren, ReactNode } from 'react'
 
-import { useSetSheetStack } from '~/providers'
+import { useSetSheetStack } from '../providers'
 
 export interface PresentSheetProps {
   content: ReactNode | FC

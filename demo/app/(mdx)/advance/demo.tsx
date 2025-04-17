@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { m } from "framer-motion"
+import { m } from "motion/react"
 import { Modal, ModalStackContainer, useModalStack } from "rc-modal-sheet"
 
 import { Button } from "@/components/ui/button"

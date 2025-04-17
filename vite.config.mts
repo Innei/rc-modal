@@ -52,6 +52,8 @@ export default defineConfig({
         'lodash',
         'lodash-es',
         'react/jsx-runtime',
+        'motion',
+        'motion/react',
         ...Object.keys(globals),
       ],
       output: {

@@ -1,7 +1,7 @@
 'use client'
 
+import { motion } from 'motion/react'
 import React from 'react'
-import { motion } from 'framer-motion'
 import type { ModalStackContainerProps } from '~/modal/index.js'
 import type { FC, PropsWithChildren } from 'react'
 

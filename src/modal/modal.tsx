@@ -1,6 +1,7 @@
 'use client'
 
 import * as Dialog from '@radix-ui/react-dialog'
+import { useAnimationControls, useDragControls } from 'motion/react'
 import React, {
   createContext,
   createElement,
@@ -12,8 +13,7 @@ import React, {
   useMemo,
   useRef,
 } from 'react'
-import { useAnimationControls, useDragControls } from 'framer-motion'
-import type { Spring, Target } from 'framer-motion'
+import type { Spring, Target } from 'motion/react'
 import type { PointerEventHandler, RefObject, SyntheticEvent } from 'react'
 import type { ModalContentPropsInternal, ModalProps } from './types'
 

@@ -1,14 +1,17 @@
 import { createContext, useContext } from 'react'
 import type { ModalGlobalConfigurations, ModalProps } from '~/modal/types'
-import type { m, motion } from 'framer-motion'
+import type { m, motion } from 'motion/react'
 
-import { createContextState } from '~/lib/craete-context-state'
+import { createContextState } from '~/lib/create-context-state'
 
 export const [SheetStackProvider, useSheetStack, useSetSheetStack] =
-  createContextState([] as HTMLDivElement[])
+  createContextState([] as HTMLDivElement[], 'SheetStackProvider')
 
 export const [ModalStackProvider, useModalStackInternal, useSetModalStack] =
-  createContextState([] as (ModalProps & { id: string })[])
+  createContextState(
+    [] as (ModalProps & { id: string })[],
+    'ModalStackProvider',
+  )
 
 export const [IsMobileProvider, useIsMobile, useSetIsMobile] =
   createContextState(false)

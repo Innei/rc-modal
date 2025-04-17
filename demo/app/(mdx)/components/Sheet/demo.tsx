@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { PresentSheet } from "~/sheet"
+import { PresentSheet } from "rc-modal-sheet"
 
 import { Button } from "@/components/ui/button"
 

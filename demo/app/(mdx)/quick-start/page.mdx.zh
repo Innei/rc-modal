@@ -22,7 +22,7 @@ npm i rc-modal-sheet
 在你的项目顶层增加 `ModalStackContainer` 组件的包装：
 
 ```tsx
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import { ModalStackContainer } from "rc-modal-sheet"
 
 const App = () => (

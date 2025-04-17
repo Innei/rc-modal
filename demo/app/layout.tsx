@@ -9,8 +9,8 @@ import "./index.css"
 
 import type { SVGProps } from "react"
 import Script from "next/script"
-import { PresentSheet } from "~/sheet"
 import { GeistSans } from "geist/font/sans"
+import { PresentSheet } from "rc-modal-sheet/dist/sheet/Sheet.mjs"
 
 import { siteConfig } from "@/config/site"
 import { LeftAside } from "@/components/layout/sidebar"
