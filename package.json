@@ -1,6 +1,6 @@
 {
   "name": "rc-modal-sheet",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Beautifully designed Modal Component built with Radix UI and Tailwind CSS.",
   "author": "Innei",
   "license": "MIT",

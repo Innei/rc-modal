@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [1.0.1](https://github.com/Innei/rc-modal/compare/v1.0.0...v1.0.1) (2025-07-14)
+
+
+
 # [1.0.0](https://github.com/Innei/rc-modal/compare/v0.3.2...v1.0.0) (2025-04-17)
 
 
