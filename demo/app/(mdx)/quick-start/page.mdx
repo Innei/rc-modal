@@ -46,7 +46,7 @@ import { ModalStackContainer } from "rc-modal-sheet/m"
 const App = () => <ModalStackContainer>{children}</ModalStackContainer>
 ```
 
-### Using with TailwindCSS
+### Using with TailwindCSS V3
 
 If your project uses TailwindCSS, add the following configuration in `tailwind.config.js`:
 
@@ -60,6 +60,16 @@ module.exports = {
     "./node_modules/rc-modal-sheet/**/*.js", // Add this line
   ],
 }
+```
+
+### Using with TailwindCSS V4
+
+If your project uses TailwindCSS, add the following configuration in `tailwind.config.js`:
+
+```css
+/** style.css */
+
+@source './node_modules/rc-modal-sheet/**/*.js'; /* The path of rc-modal lib location */
 ```
 
 ### Using in Non-TailwindCSS Projects
