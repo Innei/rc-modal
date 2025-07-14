@@ -13,7 +13,7 @@ import React, {
   useMemo,
   useRef,
 } from 'react'
-import type { Spring, Target } from 'motion/react'
+import type { Spring, Target, Transition } from 'motion/react'
 import type { PointerEventHandler, RefObject, SyntheticEvent } from 'react'
 import type { ModalContentPropsInternal, ModalProps } from './types'
 
@@ -36,7 +36,7 @@ import { PresentSheet } from '../sheet'
 import { ModalBEM } from './bem'
 import { MODAL_STACK_Z_INDEX } from './constants'
 
-const microReboundPreset: Spring = {
+const microReboundPreset: Transition = {
   type: 'spring',
   stiffness: 300,
   damping: 20,
@@ -339,7 +339,7 @@ export const Modal: Component<{
                         {CloseIcon}
                       </Dialog.DialogClose>
                     </div>
-                    <Divider className="my-2 flex-shrink-0 border-slate-200 opacity-80 dark:border-neutral-800" />
+                    <Divider className="my-2 flex-shrink-0" />
 
                     <div
                       className={`${ModalBEM.children} min-h-0 flex-shrink flex-grow overflow-auto px-4 py-2`}
